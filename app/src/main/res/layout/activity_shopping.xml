@@ -6,27 +6,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ShoppingActivity" >
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="96dp"
-        android:layout_height="24dp"
-        android:text="Food Options"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="270dp"
-        android:layout_height="187dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="57dp" >
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/chickenbento" />
-    </androidx.recyclerview.widget.RecyclerView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".ShoppingActivity" />

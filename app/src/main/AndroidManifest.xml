@@ -11,15 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniProject2_RaynardThian">
-        <activity android:name=".AdminLoginActivity"></activity>
-        <activity android:name=".AdminActivity" />
-        <activity android:name=".CheckoutActivity" />
-        <activity android:name=".ShoppingActivity" />
+        <activity android:name=".AdminLoginActivity"
+            android:label="Admin Login"></activity>
+        <activity android:name=".AdminActivity"
+            android:label="Admin Logs"/>
+        <activity android:name=".CheckoutActivity"
+            android:label="Checkout Page"/>
+        <activity android:name=".ShoppingActivity"
+            android:label="Shopping"/>
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".CustomerActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ForgotActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".CustomerActivity"
+            android:label="Customer Login"/>
+        <activity android:name=".RegisterActivity"
+            android:label="New Registration"/>
+        <activity android:name=".ForgotActivity"
+            android:label="Forgot Password"/>
+        <activity android:name=".MainActivity"
+            android:label="Food Ordering App">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

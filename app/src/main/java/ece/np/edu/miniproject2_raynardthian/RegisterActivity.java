@@ -26,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
             Cursor cursor = db.getAllData();
             cursor.moveToFirst();
             boolean exist = false;
+            // Check for same username
             for (int i = 0; i < cursor.getCount(); i++) {
                 String nameData = cursor.getString(1);
                 if (name.equals(nameData)) {
@@ -34,9 +35,11 @@ public class RegisterActivity extends AppCompatActivity {
                     cursor.moveToNext();
                 }
             }
+            // if username is found the same
             if(exist){
                 Toast.makeText(RegisterActivity.this, "Username is taken", Toast.LENGTH_SHORT).show();
             }
+            // if username is not taken
             else{
                 try {
                     customerList = new Customer(-1, etUsername.getText().toString(), etPassword.getText().toString(), Integer.parseInt(etAge.getText().toString()), etAddress.getText().toString()); // Address not passing through

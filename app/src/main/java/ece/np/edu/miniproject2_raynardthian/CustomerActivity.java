@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,8 +20,8 @@ public class CustomerActivity extends AppCompatActivity {
     EditText etUser, etPass;
     Button btLogin;
     TextView tvTries, tvForgot, tvRegistration;
-    ArrayAdapter nameArrayAdapter;
     DataBaseHelper db;
+    int tries;
     private View.OnClickListener forgotListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -40,20 +40,31 @@ public class CustomerActivity extends AppCompatActivity {
             Cursor cursor = db.getAllData();
             cursor.moveToFirst();
             boolean found = false;
-            do{
-                String s = cursor.getString(1);
-                if(name.equals(s)){
+            do {
+                String nameData = cursor.getString(1);
+                String passData = cursor.getString(2);
+                if ((name.equals(nameData)) && (pass.equals(passData))) {
                     found = true;
                     //WHAT DO IF MATCH
+                    Intent i = new Intent(CustomerActivity.this, ShoppingActivity.class);
+                    startActivity(i);
                     break;
                 }
             } while (cursor.moveToNext());
 
-            if(!found){
+            if (!found) {
                 //WHAT DO IF CANNOT FOUND
+                tries--;
+                String t = String.valueOf(tries);
+                tvTries.setText(t);
+                Toast.makeText(CustomerActivity.this, "Invalid Username or Password!", Toast.LENGTH_SHORT).show();
+                if (tries == 0) {
+                        Intent i = new Intent(CustomerActivity.this,MainActivity.class);
+                        startActivity(i);
+                }
             }
-//            Intent i = new Intent(CustomerActivity.this, ShoppingActivity.class);
-//            startActivity(i);
+
+
         }
     };
     private View.OnClickListener registerListener = new View.OnClickListener() {
@@ -78,5 +89,6 @@ public class CustomerActivity extends AppCompatActivity {
         btLogin.setOnClickListener(loginListener);
         tvForgot.setOnClickListener(forgotListener);
         tvRegistration.setOnClickListener(registerListener);
+        tries = 5;
     }
 }

@@ -15,16 +15,6 @@ public class ForgotActivity extends AppCompatActivity {
     private View.OnClickListener changeListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            Customer customerList;
-//            DataBaseHelper dataBaseHelper = new DataBaseHelper(ForgotActivity.this);
-//            customerList = new Customer(-1,etUserN.getText().toString(),etPassW.getText().toString(),0,"None");
-//            Boolean checkUpdateData = dataBaseHelper.updateToDataBase(customerList);
-//            if(checkUpdateData==true){
-//                Toast.makeText(ForgotActivity.this,"Entry Updated",Toast.LENGTH_SHORT).show();
-//            }
-//            else{
-//                Toast.makeText(ForgotActivity.this,"Entry Not Updated",Toast.LENGTH_SHORT).show();
-//            }
             boolean isUpdate = db.updateOne(etUserN.getText().toString(),etPassW.getText().toString());
             if(isUpdate==true){
                 Toast.makeText(ForgotActivity.this,"Entry Updated",Toast.LENGTH_SHORT).show();

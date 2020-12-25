@@ -71,17 +71,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public boolean updateOne(String name, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-//        cv.put(COLUMN_CUSTOMER_NAME,name);
-//        cv.put(COLUMN_CUSTOMER_PASSWORD,password);
-//        db.update(CUSTOMER_TABLE,cv ,"CUSTOMER_PASSWORD=?" ,"password");
-        String queryString = "UPDATE " + CUSTOMER_TABLE + " SET " + COLUMN_CUSTOMER_PASSWORD + " = " + password + " WHERE " + COLUMN_CUSTOMER_NAME + " = " + "" + name + "";
-
-        db.execSQL(queryString);
-//        if (cursor.moveToFirst()) {
-//            return true;
-//        } else {
-//            return false;
-//        }
+        cv.put(COLUMN_CUSTOMER_PASSWORD,password);
+        String[] s = {name};
+        db.update(CUSTOMER_TABLE, cv, COLUMN_CUSTOMER_NAME+"=?", s);
         return true;
     }
 

@@ -1,5 +1,6 @@
 package ece.np.edu.miniproject2_raynardthian;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,19 +14,22 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener registerListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Intent i = new Intent(MainActivity.this,RegisterActivity.class);
+            startActivity(i);
         }
     };
     private View.OnClickListener adminListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Intent i = new Intent(MainActivity.this,AdminLoginActivity.class);
+            startActivity(i);
         }
     };
     private View.OnClickListener customerListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Intent i = new Intent(MainActivity.this,CustomerActivity.class);
+            startActivity(i);
         }
     };
     @Override
@@ -39,5 +43,7 @@ public class MainActivity extends AppCompatActivity {
         btCustomer.setOnClickListener(customerListener);
         btAdmin.setOnClickListener(adminListener);
         tvRegister.setOnClickListener(registerListener);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+
     }
 }

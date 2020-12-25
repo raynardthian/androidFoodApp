@@ -11,14 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniProject2_RaynardThian">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".AdminLoginActivity"></activity>
+        <activity android:name=".AdminActivity" />
         <activity android:name=".CheckoutActivity" />
         <activity android:name=".ShoppingActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".AdminActivity" />
         <activity android:name=".CustomerActivity" />
-        <activity android:name=".ForgotActivity">
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ForgotActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

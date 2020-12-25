@@ -18,16 +18,21 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Customer customerList;
+//            String name = etUsername.getText().toString();
+//            String pass = etPassword.getText().toString();
+//            Integer age = Integer.parseInt(etAge.getText().toString());
+//            String address = etAddress.getText().toString();
             try {
                 customerList = new Customer(-1, etUsername.getText().toString(), etPassword.getText().toString(), Integer.parseInt(etAge.getText().toString()), etAddress.getText().toString()); // Address not passing through
                 Toast.makeText(RegisterActivity.this, customerList.toString(), Toast.LENGTH_SHORT).show();
+
             } catch (Exception e) {
                 Toast.makeText(RegisterActivity.this, "Error Creating Customer", Toast.LENGTH_SHORT).show();
                 customerList = new Customer(-1, "Error", "Error Password", 0, "Error Address");
             }
             DataBaseHelper dataBaseHelper = new DataBaseHelper(RegisterActivity.this);
             boolean success = dataBaseHelper.addOne(customerList);
-            Toast.makeText(RegisterActivity.this, "Success = " + success, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Created Successfully", Toast.LENGTH_SHORT).show();
 
         }
     };

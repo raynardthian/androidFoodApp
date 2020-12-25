@@ -1,5 +1,6 @@
 package ece.np.edu.miniproject2_raynardthian;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,19 +16,22 @@ public class CustomerActivity extends AppCompatActivity {
     private View.OnClickListener forgotListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Intent i = new Intent(CustomerActivity.this, ForgotActivity.class);
+            startActivity(i);
         }
     };
     private View.OnClickListener loginListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Intent i = new Intent(CustomerActivity.this, ShoppingActivity.class);
+            startActivity(i);
         }
     };
     private View.OnClickListener registerListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Intent i = new Intent(CustomerActivity.this, RegisterActivity.class);
+            startActivity(i);
         }
     };
 

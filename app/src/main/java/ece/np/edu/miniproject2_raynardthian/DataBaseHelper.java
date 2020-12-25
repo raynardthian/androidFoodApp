@@ -105,7 +105,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // This is to get everyone in the datasheet
     public List<Customer> getEveryone() {
         List<Customer> returnList = new ArrayList<>();
-
         // get data from the data base
         String queryString = "SELECT * FROM " + CUSTOMER_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -130,5 +129,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return returnList;
+    }
+
+
+    public Cursor getAllData(){
+        String queryString = "SELECT * FROM " + CUSTOMER_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        return cursor;
     }
 }

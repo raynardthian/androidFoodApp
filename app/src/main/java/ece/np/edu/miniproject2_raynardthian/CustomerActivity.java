@@ -47,6 +47,8 @@ public class CustomerActivity extends AppCompatActivity {
                     found = true;
                     //WHAT DO IF MATCH
                     Intent i = new Intent(CustomerActivity.this, ShoppingActivity.class);
+                    // To send the name over to the shopping class activity
+                    i.putExtra("name",name);
                     startActivity(i);
                     break;
                 }
@@ -63,8 +65,8 @@ public class CustomerActivity extends AppCompatActivity {
                         startActivity(i);
                 }
             }
-
-
+            cursor.close();
+            db.close();
         }
     };
     private View.OnClickListener registerListener = new View.OnClickListener() {

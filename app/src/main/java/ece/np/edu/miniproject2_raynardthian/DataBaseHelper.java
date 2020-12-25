@@ -94,6 +94,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean getPersonData(String name){
+        String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_CUSTOMER_NAME + " = " + name ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        return true;
+    }
+
     // This is to get everyone in the datasheet
     public List<Customer> getEveryone() {
         List<Customer> returnList = new ArrayList<>();

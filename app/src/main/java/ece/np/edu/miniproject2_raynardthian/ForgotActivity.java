@@ -22,7 +22,7 @@ public class ForgotActivity extends AppCompatActivity {
             else{
                 Toast.makeText(ForgotActivity.this,"Entry Not Updated",Toast.LENGTH_SHORT).show();
             }
-
+            db.close();
         }
     };
 

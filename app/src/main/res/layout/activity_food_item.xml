@@ -17,19 +17,29 @@
         android:id="@+id/tvFood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="Food Item"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tvCost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="CostPrice"
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/textView20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quantity:" />
+        android:text="Quantity:"
+        android:textSize="16sp"/>
 
     <EditText
         android:id="@+id/etQuantity"

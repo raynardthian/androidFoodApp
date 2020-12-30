@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniProject2_RaynardThian">
-        <activity android:name=".FoodItemActivity"></activity>
+        <activity android:name=".AdminInsertFood"></activity>
+        <activity android:name=".FoodItemActivity" />
         <activity android:name=".AlbumAdapter" />
         <activity android:name=".ChickenActivity" />
         <activity

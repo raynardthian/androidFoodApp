@@ -1,6 +1,7 @@
 package ece.np.edu.miniproject2_raynardthian;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,14 +18,13 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     Button btProfile, btCheckout;
     RecyclerView rvShop;
     RecyclerView.Adapter adapter;
-    // users are food
-    ArrayList<String> users;
+    ArrayList<String> PicturePath;
+    ArrayList<String> Description;
     ArrayList<String> foodCost;
-    String TotalSelectedFood="", Food, Cost, Quantity;
-    Float TotalCost=0.0f, incomingCost;
-    private RecyclerView.LayoutManager layoutManager;
-    // Images Array
-    private int[] images = {R.drawable.chickenrice, R.drawable.chickenbento, R.drawable.mcandcheese};
+    ArrayList<String> FoodNames;
+
+    String TotalSelectedFood = "", Food, Cost, Quantity;
+    Float TotalCost = 0.0f, incomingCost;
 
     private View.OnClickListener profileListener = new View.OnClickListener() {
         @Override
@@ -35,13 +35,12 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     };
 
 
-
     private View.OnClickListener checkoutListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(ShoppingActivity.this,CheckoutActivity.class);
-            i.putExtra("string_total_food",TotalSelectedFood);
-            i.putExtra("string_total_cost",TotalCost);
+            Intent i = new Intent(ShoppingActivity.this, CheckoutActivity.class);
+            i.putExtra("string_total_food", TotalSelectedFood);
+            i.putExtra("string_total_cost", TotalCost);
             startActivity(i);
         }
     };
@@ -56,24 +55,27 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
         btCheckout.setOnClickListener(checkoutListener);
         rvShop = this.findViewById(R.id.rvShop);
         // users are just food
-        users = new ArrayList<>();
         foodCost = new ArrayList<>();
-        users.add("Chicken Rice");
-        users.add("Chicken Cutlet");
-        users.add("Mac and Cheese");
-        foodCost.add("5.50");
-        foodCost.add("6.50");
-        foodCost.add("4.50");
-//        for (int i = 0; i < 10; i++) {
-//            users.add("hello " + i);
-//            System.out.println(i);
-//        }
+        FoodNames = new ArrayList<>();
+        Description = new ArrayList<>();
+        PicturePath = new ArrayList<>();
 
-//        rvShop.setLayoutManager(new LinearLayoutManager(this));
-//        adapter = new UserAdapter(users);
-//        rvShop.setAdapter(adapter);
-
-        adapter = new AlbumAdapter(images, users, foodCost, this);
+        DataBaseHelper db = new DataBaseHelper(ShoppingActivity.this);
+        Cursor cursor = db.getFoodNames();
+        cursor.moveToFirst();
+            // loop through the cursor (result set) and create new Food Item objects. Put them into the return list
+            do {
+                String FoodName = cursor.getString(1);
+                String FoodDescription = cursor.getString(2);
+                float retrievedFoodCost = cursor.getFloat(3);
+                String picturePath = cursor.getString(4);
+                FoodNames.add(FoodName);
+                String FoodCostString = String.valueOf(retrievedFoodCost);
+                foodCost.add(FoodCostString);
+                Description.add(FoodDescription);
+                PicturePath.add(picturePath);
+            } while (cursor.moveToNext());
+        adapter = new AlbumAdapter(PicturePath, FoodNames, foodCost, Description ,this);
         rvShop.setLayoutManager(new GridLayoutManager(this, 1));
         rvShop.setHasFixedSize(true);
         rvShop.setAdapter(adapter);
@@ -95,16 +97,10 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
                 Quantity = data.getStringExtra("string_from_quantity");
                 incomingCost = Float.valueOf(Cost);
                 TotalSelectedFood = TotalSelectedFood + Quantity + " " + Food + "\n";
-//                TotalSelectedFood = Quantity + " " + Food + "\n";
-//                    SelectedFood = SelectedFood + data.getStringExtra("string_from_chosen_food");
-//                    SelectedCost = SelectedCost + data.getStringExtra("string_from_chosen_cost");
                 TotalCost = TotalCost + incomingCost;
                 System.out.println(TotalSelectedFood);
-                System.out.println(TotalCost);
-
+                System.out.println(TotalCost);                                                          /// MAKE SURE TO REMOVE THIS
             }
-
-
         } else if (resultCode == RESULT_CANCELED) {
             Toast.makeText(ShoppingActivity.this, "Cancelled & Nothing Returned", Toast.LENGTH_SHORT).show();
 
@@ -117,8 +113,10 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     @Override
     public void onNoteClick(int position) {
         Intent i = new Intent(ShoppingActivity.this, FoodItemActivity.class);
-        i.putExtra("Food", users.get(position));
+        i.putExtra("Food", FoodNames.get(position));
         i.putExtra("Cost", foodCost.get(position));
+        i.putExtra("Description",Description.get(position));
+        i.putExtra("PicturePath",PicturePath.get(position));
         startActivityForResult(i, REQUEST_CODE);
     }
 }

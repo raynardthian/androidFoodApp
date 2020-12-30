@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AlbumAdapter"
-    android:padding = "10dp"
-    android:elevation="12dp">
+    >
 
     <ImageView
         android:id="@+id/album"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:srcCompat="@drawable/chickenbento"
-        android:scaleType="fitXY"/>
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/chickenbento" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,6 +24,16 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:id="@+id/album_title"/>
+
+    <TextView
+        android:id="@+id/album_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Description"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/album_cost"

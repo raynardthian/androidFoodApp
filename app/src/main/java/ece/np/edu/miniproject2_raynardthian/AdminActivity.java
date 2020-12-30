@@ -1,5 +1,6 @@
 package ece.np.edu.miniproject2_raynardthian;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
 public class AdminActivity extends AppCompatActivity {
-    Button btShow;
+    Button btShow,btNextPage;
     ListView lvNameList;
     ArrayAdapter customerArrayAdapter;
     DataBaseHelper dataBaseHelper;
@@ -37,16 +38,25 @@ public class AdminActivity extends AppCompatActivity {
             Toast.makeText(AdminActivity.this,"Deleted " + clickedCustomer.toString(),Toast.LENGTH_SHORT).show();
         }
     };
+    private View.OnClickListener nextListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(AdminActivity.this,AdminInsertFood.class);
+            startActivity(i);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
         btShow = this.findViewById(R.id.btShow);
+        btNextPage = this.findViewById(R.id.btNextPage);
         lvNameList = this.findViewById(R.id.lvNameList);
         dataBaseHelper = new DataBaseHelper(AdminActivity.this);
         customerArrayAdapter = new ArrayAdapter<Customer>(AdminActivity.this, android.R.layout.simple_list_item_1, dataBaseHelper.getEveryone());
         btShow.setOnClickListener(showlistener);
         lvNameList.setOnItemClickListener(nameListener);
+        btNextPage.setOnClickListener(nextListener);
     }
 }

@@ -13,6 +13,12 @@
         android:layout_height="wrap_content"
         android:text="Show All" />
 
+    <Button
+        android:id="@+id/btNextPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To edit Food Items" />
+
     <ListView
         android:id="@+id/lvNameList"
         android:layout_width="match_parent"

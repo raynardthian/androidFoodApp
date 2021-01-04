@@ -42,7 +42,6 @@ public class AdminInsertFood extends AppCompatActivity {
             String FoodName = etFoodName.getText().toString();
             String FoodDescription = etFoodDescription.getText().toString();
             Float FoodCost = Float.parseFloat(etFoodCost.getText().toString());
-            // Havent include Blob
             Cursor cursor = db.getAllFoodData();
             cursor.moveToFirst();
             boolean exist = false;

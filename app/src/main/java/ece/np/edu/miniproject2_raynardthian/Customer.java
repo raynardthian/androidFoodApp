@@ -57,7 +57,7 @@ public class Customer {
     public void setAge(int age) {
         Age = age;
     }
-
+    // To String
     @Override
     public String toString() {
         return "Customer{" +
@@ -67,5 +67,15 @@ public class Customer {
                 ", Age=" + Age +
                 ", Address='" + Address + '\'' +
                 '}';
+    }
+
+    public String getName(String name){
+        if(name.equals(Name)){
+            return id + Name + Password + Age + Address;
+        }
+        else
+        {
+            return name; // idk why
+        }
     }
 }

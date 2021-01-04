@@ -81,6 +81,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // This is to delete the customer in the customer database
     public boolean deleteOne(Customer customer) {
         // find customer in the database, if it is found, delete it and return true
         // if it is not found, return false
@@ -94,6 +95,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // this is to delete the food item in the fooditem database
     public boolean deleteOneFoodItem(FoodItem foodItem) {
         // find customer in the database, if it is found, delete it and return true
         // if it is not found, return false
@@ -107,6 +109,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // This is to update to the database
     public boolean updateOne(String name, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -116,29 +119,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-//    public boolean updateToDataBase(Customer customerList) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//        cv.put(COLUMN_CUSTOMER_PASSWORD, customerList.getPassword());
-//        Cursor cursor = db.rawQuery("SELECT * FROM CUSTOMER_TABLE WHERE CUSTOMER_NAMETEXT=?", new String[]{customerList.getName()});
-//        if (cursor.getCount() > 0) {
-//            long insert = db.update("customers", cv, "CUSTOMER_NAMETEXT=?", new String[]{customerList.getName()});
-//            if (insert == -1) {
-//                return false;
-//            } else {
-//                return true;
-//            }
-//        } else {
-//            return false;
-//        }
-//    }
-
-    public boolean getPersonData(String name) {
-        String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_CUSTOMER_NAME + " = " + name;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(queryString, null);
-        return true;
-    }
 
     // This is to get everyone in the datasheet
     public List<Customer> getEveryone() {
@@ -168,6 +148,37 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
         return returnList;
     }
+//
+//    public boolean getPersonDatas(String name) {
+//        String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_CUSTOMER_NAME + " = " + name;
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(queryString, null);
+//        return true;
+//    }
+
+//    public List<Customer> getPersonData(String name){
+//        List<Customer> returnList = new ArrayList<>();
+//        String[] s = {name};
+//        String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_CUSTOMER_NAME + " = " + s;
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(queryString, null);
+//        if(cursor.moveToFirst()){
+//            do {
+//                int customerID = cursor.getInt(0);
+//                String customerName = cursor.getString(1);
+//                String customerPassword = cursor.getString(2);
+//                int customerAge = cursor.getInt(3);
+//                String customerAddress = cursor.getString(4);
+//
+//                Customer newCustomer = new Customer(customerID, customerName, customerPassword, customerAge, customerAddress);
+//                returnList.add(newCustomer);
+//            } while (cursor.moveToNext());
+//        }
+//        else{}
+//        cursor.close();
+//        db.close();
+//        return returnList;
+//    }
 
     // This is to get all the food item in the data sheet
     public List<FoodItem> getAllFoodItem() {
@@ -187,28 +198,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
                 FoodItem newfooditem = new FoodItem(FoodID, FoodName, FoodDescription, FoodCost, PicturePath);
                 returnList.add(newfooditem);
-            } while (cursor.moveToNext());
-        } else {
-            // Failure. do not add anything to the list
-
-        }
-        // close the cursor and database when done
-        cursor.close();
-        db.close();
-        return returnList;
-    }
-
-    public List<String> getFoodName() {
-        List<String> returnList = new ArrayList<>();
-        // get data from the data base
-        String queryString = "SELECT * FROM " + ADMIN_FOOD_TABLE;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(queryString, null);
-        if (cursor.moveToFirst()) {
-            // loop through the cursor (result set) and create new Food Item objects. Put them into the return list
-            do {
-                String FoodName = cursor.getString(1);
-                returnList.add(FoodName);
             } while (cursor.moveToNext());
         } else {
             // Failure. do not add anything to the list

@@ -73,19 +73,4 @@ public class FoodItem {
                 '}';
     }
 
-    public String FoodNameToString(){
-        return FoodName;
-    }
-
-    public String FoodDescriptionToString(){
-        return FoodDescription;
-    }
-
-    public Float FoodCostToString(){
-        return FoodCost;
-    }
-
-    public String FoodPictureToString(){
-        return FoodPicture;
-    }
 }

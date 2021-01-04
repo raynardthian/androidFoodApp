@@ -48,7 +48,7 @@ public class CustomerActivity extends AppCompatActivity {
                     //WHAT DO IF MATCH
                     Intent i = new Intent(CustomerActivity.this, ShoppingActivity.class);
                     // To send the name over to the shopping class activity
-                    i.putExtra("name",name);
+                    i.putExtra("customer_name",name);
                     startActivity(i);
                     break;
                 }

@@ -22,6 +22,7 @@ public class FoodItemActivity extends AppCompatActivity {
     private View.OnClickListener enterListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            try{
             String quantity = etQuantity.getText().toString();
             Float quantityFloat = Float.valueOf(quantity);
             Float TotalCost = quantityFloat * selectedCost;
@@ -32,7 +33,10 @@ public class FoodItemActivity extends AppCompatActivity {
             i.putExtra("string_from_quantity",quantity);
             // Have yet to send quantity over
             setResult(RESULT_OK,i);
-            finish();
+            finish();}
+            catch(Exception e){
+                Toast.makeText(FoodItemActivity.this,"Invalid Number of Quantity",Toast.LENGTH_SHORT).show();
+            }
         }
     };
     private View.OnClickListener backListener = new View.OnClickListener() {

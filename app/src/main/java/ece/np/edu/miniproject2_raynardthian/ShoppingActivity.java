@@ -23,7 +23,7 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     ArrayList<String> foodCost;
     ArrayList<String> FoodNames;
 
-    String TotalSelectedFood = "", Food, Cost, Quantity;
+    String TotalSelectedFood = "", Food, Cost, Quantity, CustomerName;
     Float TotalCost = 0.0f, incomingCost;
 
     private View.OnClickListener profileListener = new View.OnClickListener() {
@@ -41,6 +41,7 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
             Intent i = new Intent(ShoppingActivity.this, CheckoutActivity.class);
             i.putExtra("string_total_food", TotalSelectedFood);
             i.putExtra("string_total_cost", TotalCost);
+            i.putExtra("customerName",CustomerName);
             startActivity(i);
         }
     };
@@ -54,7 +55,6 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
         btCheckout = this.findViewById(R.id.btCheckout);
         btCheckout.setOnClickListener(checkoutListener);
         rvShop = this.findViewById(R.id.rvShop);
-        // users are just food
         foodCost = new ArrayList<>();
         FoodNames = new ArrayList<>();
         Description = new ArrayList<>();
@@ -81,7 +81,8 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
         rvShop.setAdapter(adapter);
 
         btProfile.setOnClickListener(profileListener);
-
+        Intent i = this.getIntent();
+        CustomerName = i.getStringExtra("customer_name");
     }
 
     // This is to send out the values from this activity to the foodItemActivity

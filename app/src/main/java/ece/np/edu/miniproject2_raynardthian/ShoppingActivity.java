@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.OnNoteListener {
-    Button btProfile, btCheckout;
+    Button btCheckout;
     RecyclerView rvShop;
     RecyclerView.Adapter adapter;
     ArrayList<String> PicturePath;
@@ -26,13 +26,13 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     String TotalSelectedFood = "", Food, Cost, Quantity, CustomerName;
     Float TotalCost = 0.0f, incomingCost;
 
-    private View.OnClickListener profileListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(ShoppingActivity.this, ProfileActivity.class);
-            startActivity(i);
-        }
-    };
+//    private View.OnClickListener profileListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            Intent i = new Intent(ShoppingActivity.this, ProfileActivity.class);
+//            startActivity(i);
+//        }
+//    };
 
 
     private View.OnClickListener checkoutListener = new View.OnClickListener() {
@@ -50,7 +50,6 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
-        btProfile = this.findViewById(R.id.btProfile);
 
         btCheckout = this.findViewById(R.id.btCheckout);
         btCheckout.setOnClickListener(checkoutListener);
@@ -80,7 +79,7 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
         rvShop.setHasFixedSize(true);
         rvShop.setAdapter(adapter);
 
-        btProfile.setOnClickListener(profileListener);
+//        btProfile.setOnClickListener(profileListener);
         Intent i = this.getIntent();
         CustomerName = i.getStringExtra("customer_name");
     }

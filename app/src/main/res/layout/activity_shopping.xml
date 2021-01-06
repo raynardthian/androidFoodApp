@@ -14,37 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginEnd="288dp"
         android:text="Food Available"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/rvShop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="267dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="35dp"
-        android:text="Profile Management"
-        app:layout_constraintBottom_toTopOf="@+id/rvShop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btProfile"
-        android:layout_width="124dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="9dp"
-        android:text="Profile"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -52,24 +26,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="293dp"
+        android:layout_marginTop="131dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="38dp"
         android:text="Checkout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvShop" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvShop"
-        android:layout_width="381dp"
-        android:layout_height="379dp"
+        android:layout_width="382dp"
+        android:layout_height="454dp"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="132dp"
-        app:layout_constraintBottom_toTopOf="@+id/btCheckout"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

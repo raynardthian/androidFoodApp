@@ -148,37 +148,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
         return returnList;
     }
-//
-//    public boolean getPersonDatas(String name) {
-//        String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_CUSTOMER_NAME + " = " + name;
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(queryString, null);
-//        return true;
-//    }
 
-//    public List<Customer> getPersonData(String name){
-//        List<Customer> returnList = new ArrayList<>();
-//        String[] s = {name};
-//        String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_CUSTOMER_NAME + " = " + s;
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(queryString, null);
-//        if(cursor.moveToFirst()){
-//            do {
-//                int customerID = cursor.getInt(0);
-//                String customerName = cursor.getString(1);
-//                String customerPassword = cursor.getString(2);
-//                int customerAge = cursor.getInt(3);
-//                String customerAddress = cursor.getString(4);
-//
-//                Customer newCustomer = new Customer(customerID, customerName, customerPassword, customerAge, customerAddress);
-//                returnList.add(newCustomer);
-//            } while (cursor.moveToNext());
-//        }
-//        else{}
-//        cursor.close();
-//        db.close();
-//        return returnList;
-//    }
+    public Cursor getPersonDatas(String name) {
+        String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_CUSTOMER_NAME + " = '" + name+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        return cursor;
+    }
 
     // This is to get all the food item in the data sheet
     public List<FoodItem> getAllFoodItem() {

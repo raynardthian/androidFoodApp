@@ -12,18 +12,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total Orders"
-        android:textSize="20sp" />
+        android:textSize="26sp" />
 
-    <ListView
-        android:id="@+id/lvOrders"
+    <TextView
+        android:id="@+id/tvOrder"
         android:layout_width="match_parent"
-        android:layout_height="215dp" />
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total Price"
-        android:textSize="20sp" />
+        android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/tvCostPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delivery Destination"
+        android:textSize="26sp"/>
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20sp"/>
 
 </LinearLayout>

@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         btCustomer.setOnClickListener(customerListener);
         btAdmin.setOnClickListener(adminListener);
         tvRegister.setOnClickListener(registerListener);
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
     }
 }

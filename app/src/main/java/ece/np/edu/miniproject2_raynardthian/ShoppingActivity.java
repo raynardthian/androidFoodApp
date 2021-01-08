@@ -22,7 +22,7 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     ArrayList<String> Description;
     ArrayList<String> foodCost;
     ArrayList<String> FoodNames;
-
+    ArrayList<String> fooditem;
     String TotalSelectedFood = "", Food, Cost, Quantity, CustomerName;
     Float TotalCost = 0.0f, incomingCost;
 
@@ -42,6 +42,7 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
             i.putExtra("string_total_food", TotalSelectedFood);
             i.putExtra("string_total_cost", TotalCost);
             i.putExtra("customerName",CustomerName);
+            i.putStringArrayListExtra("array_food",fooditem);
             startActivity(i);
         }
     };
@@ -58,7 +59,7 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
         FoodNames = new ArrayList<>();
         Description = new ArrayList<>();
         PicturePath = new ArrayList<>();
-
+        fooditem = new ArrayList<>();
         DataBaseHelper db = new DataBaseHelper(ShoppingActivity.this);
         Cursor cursor = db.getFoodNames();
         cursor.moveToFirst();
@@ -98,8 +99,11 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
                 incomingCost = Float.valueOf(Cost);
                 TotalSelectedFood = TotalSelectedFood + Quantity + " " + Food + "\n";
                 TotalCost = TotalCost + incomingCost;
-                System.out.println(TotalSelectedFood);
-                System.out.println(TotalCost);                                                          /// MAKE SURE TO REMOVE THIS
+//                System.out.println(TotalSelectedFood);
+//                System.out.println(TotalCost);                                                          /// MAKE SURE TO REMOVE THI
+                fooditem.add(Food);
+                System.out.println(fooditem);
+
             }
         } else if (resultCode == RESULT_CANCELED) {
             Toast.makeText(ShoppingActivity.this, "Cancelled & Nothing Returned", Toast.LENGTH_SHORT).show();

@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ProfileActivity extends AppCompatActivity {
     ImageView ivProfile;
     Button btChange, btSave;
-
+    // Currently not using this activity
     private static final int PERMISSION_REQUEST = 0;
     private static final int RESULT_LOAD_IMAGE = 1;
     private static final int PICK_IMAGE = 100;

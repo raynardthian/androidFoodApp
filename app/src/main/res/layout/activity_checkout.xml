@@ -8,20 +8,6 @@
     tools:context=".CheckoutActivity">
 
     <TextView
-        android:id="@+id/textView25"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Total Orders"
-        android:textSize="26sp" />
-
-    <TextView
-        android:id="@+id/tvOrder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="20sp"/>
-
-    <TextView
         android:id="@+id/textView23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,9 +35,16 @@
         android:text="TextView"
         android:textSize="20sp"/>
 
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Orders"
+        android:textSize="26sp" />
+
     <ListView
         android:id="@+id/lvFoodItems"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="244dp" />
 
 </LinearLayout>

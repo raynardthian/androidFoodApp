@@ -156,6 +156,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getFoodItemData(String foodItem){
+        String queryString = "SELECT * FROM " + ADMIN_FOOD_TABLE + " WHERE " + ADMIN_FOOD_NAME + " = '" + foodItem+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        return cursor;
+    }
     // This is to get all the food item in the data sheet
     public List<FoodItem> getAllFoodItem() {
         List<FoodItem> returnList = new ArrayList<>();

@@ -23,6 +23,7 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     ArrayList<String> foodCost;
     ArrayList<String> FoodNames;
     ArrayList<String> fooditem;
+    ArrayList<String> quantity;
     String TotalSelectedFood = "", Food, Cost, Quantity, CustomerName;
     Float TotalCost = 0.0f, incomingCost;
 
@@ -43,9 +44,11 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
             i.putExtra("string_total_cost", TotalCost);
             i.putExtra("customerName",CustomerName);
             i.putStringArrayListExtra("array_food",fooditem);
+            i.putStringArrayListExtra("array_quantity",quantity);
             startActivity(i);
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
         Description = new ArrayList<>();
         PicturePath = new ArrayList<>();
         fooditem = new ArrayList<>();
+        quantity = new ArrayList<>();
         DataBaseHelper db = new DataBaseHelper(ShoppingActivity.this);
         Cursor cursor = db.getFoodNames();
         cursor.moveToFirst();
@@ -102,6 +106,7 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
 //                System.out.println(TotalSelectedFood);
 //                System.out.println(TotalCost);                                                          /// MAKE SURE TO REMOVE THI
                 fooditem.add(Food);
+                quantity.add(Quantity);
                 System.out.println(fooditem);
 
             }

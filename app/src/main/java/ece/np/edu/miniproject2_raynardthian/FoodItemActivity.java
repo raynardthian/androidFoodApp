@@ -27,6 +27,7 @@ public class FoodItemActivity extends AppCompatActivity {
             Float quantityFloat = Float.valueOf(quantity);
             Float TotalCost = quantityFloat * selectedCost;
             String TotalCostString = String.valueOf(TotalCost);
+            Toast.makeText(FoodItemActivity.this,"Food Added To Cart : " + quantity + " " + food , Toast.LENGTH_SHORT).show();
             Intent i = new Intent();
             i.putExtra("string_from_chosen_food",food);
             i.putExtra("string_from_chosen_cost",TotalCostString);

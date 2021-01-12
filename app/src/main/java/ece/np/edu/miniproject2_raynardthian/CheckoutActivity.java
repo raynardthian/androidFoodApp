@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,11 +32,12 @@ public class CheckoutActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             float foodPrice = 0.0f;
+            String removeFood = (String)parent.getItemAtPosition(position);
             int posID = (int) parent.getItemIdAtPosition((int) id);
             String foodOutput = foodItemArray[posID];
             String quantityOutput = quantityArray[posID];
             int intQuantity = Integer.valueOf(quantityOutput);
-            System.out.println(foodOutput);
+            Toast.makeText(CheckoutActivity.this, "Food Item Removed : " + removeFood, Toast.LENGTH_SHORT).show();
             totalFood = removeTheElement(totalFood, posID);
 
             DataBaseHelper db = new DataBaseHelper(CheckoutActivity.this);
@@ -110,7 +112,6 @@ public class CheckoutActivity extends AppCompatActivity {
         lvFoodItems.setAdapter(customerArrayAdapter);
     }
 
-
     public static String[] GetStringArray(ArrayList<String> arr) {
         // declaration and initialise String Array
         String str[] = new String[arr.size()];
@@ -126,7 +127,6 @@ public class CheckoutActivity extends AppCompatActivity {
                                             int index) {
         // Create another array of size one less
         String anotherArray[] = new String[arr.length - 1];
-
         // Copy the elements except the index
         // from original array to the other array
         for (int i = 0, k = 0; i < arr.length; i++) {
@@ -135,12 +135,10 @@ public class CheckoutActivity extends AppCompatActivity {
             if (i == index) {
                 continue;
             }
-
             // if the index is not
             // the removal element index
             anotherArray[k++] = arr[i];
         }
-
         // return the resultant array
         return anotherArray;
     }

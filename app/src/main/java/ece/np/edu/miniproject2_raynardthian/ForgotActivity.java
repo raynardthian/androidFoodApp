@@ -15,12 +15,19 @@ public class ForgotActivity extends AppCompatActivity {
     private View.OnClickListener changeListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            boolean isUpdate = db.updateOne(etUserN.getText().toString(),etPassW.getText().toString());
-            if(isUpdate==true){
-                Toast.makeText(ForgotActivity.this,"Entry Updated",Toast.LENGTH_SHORT).show();
-            }
-            else{
-                Toast.makeText(ForgotActivity.this,"Entry Not Updated",Toast.LENGTH_SHORT).show();
+            String name = etUserN.getText().toString();
+            String pass = etPassW.getText().toString();
+            if (name.equals("")) {
+                Toast.makeText(ForgotActivity.this, "Please input your username", Toast.LENGTH_SHORT).show();
+            } else if (pass.equals("")) {
+                Toast.makeText(ForgotActivity.this, "Please input your new password", Toast.LENGTH_SHORT).show();
+            } else {
+                boolean isUpdate = db.updateOne(name, pass);
+                if (isUpdate == true) {
+                    Toast.makeText(ForgotActivity.this, "Entry Updated", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ForgotActivity.this, "Entry Not Updated", Toast.LENGTH_SHORT).show();
+                }
             }
             db.close();
         }

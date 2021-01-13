@@ -68,7 +68,6 @@ public class FoodItemActivity extends AppCompatActivity {
         String desc = i.getStringExtra("Description");
         String picPath = i.getStringExtra("PicturePath");
         selectedCost = Float.valueOf(cost);
-//        String actualCost = String.valueOf(cost);
         tvFood.setText(food);
         tvCost.setText("$   "+ cost);
         tvDescription.setText(desc);

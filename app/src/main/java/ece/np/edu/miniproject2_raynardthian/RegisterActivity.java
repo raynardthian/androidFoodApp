@@ -20,34 +20,47 @@ public class RegisterActivity extends AppCompatActivity {
         public void onClick(View v) {
             Customer customerList;
             String name = etUsername.getText().toString();
-//            String pass = etPassword.getText().toString();
-//            Integer age = Integer.parseInt(etAge.getText().toString());
-//            String address = etAddress.getText().toString();
-            Cursor cursor = db.getAllData();
-            cursor.moveToFirst();
-            boolean exist = false;
-            // Check for same username
-            for (int i = 0; i < cursor.getCount(); i++) {
-                String nameData = cursor.getString(1);
-                if (name.equals(nameData)) {
-                    exist=true;
-                } else {
-                    cursor.moveToNext();
+            String pass = etPassword.getText().toString();
+
+            String ageString = etAge.getText().toString();
+            String address = etAddress.getText().toString();
+
+            if (name.equals("")) {
+                Toast.makeText(RegisterActivity.this, "Please input your Name", Toast.LENGTH_SHORT).show();
+            } else if (pass.equals("")) {
+                Toast.makeText(RegisterActivity.this, "Please input your Password", Toast.LENGTH_SHORT).show();
+            } else if (ageString.equals("")) {
+                Toast.makeText(RegisterActivity.this, "Please input your Age", Toast.LENGTH_SHORT).show();
+            } else if (address.equals("")) {
+                Toast.makeText(RegisterActivity.this, "Please input your Address", Toast.LENGTH_SHORT).show();
+            } else {
+                Cursor cursor = db.getAllData();
+                cursor.moveToFirst();
+                boolean exist = false;
+                // Check for same username
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    String nameData = cursor.getString(1);
+                    if (name.equals(nameData)) {
+                        exist = true;
+                    } else {
+                        cursor.moveToNext();
+                    }
                 }
-            }
-            // if username is found the same
-            if(exist){
-                Toast.makeText(RegisterActivity.this, "Username is taken", Toast.LENGTH_SHORT).show();
-            }
-            // if username is not taken
-            else{
-                try {
-                    customerList = new Customer(-1, etUsername.getText().toString(), etPassword.getText().toString(), Integer.parseInt(etAge.getText().toString()), etAddress.getText().toString()); // Address not passing through
-                    Toast.makeText(RegisterActivity.this, customerList.toString(), Toast.LENGTH_SHORT).show();
-                    db.addOne(customerList);
-                    Toast.makeText(RegisterActivity.this, "Created Successfully", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Toast.makeText(RegisterActivity.this, "Error Creating Customer", Toast.LENGTH_SHORT).show();
+                // if username is found the same
+                if (exist) {
+                    Toast.makeText(RegisterActivity.this, "Username is taken", Toast.LENGTH_SHORT).show();
+                }
+                // if username is not taken
+                else {
+                    Integer age = Integer.parseInt(etAge.getText().toString());
+                    try {
+                        customerList = new Customer(-1, name, pass, age, address);
+                        Toast.makeText(RegisterActivity.this, customerList.toString(), Toast.LENGTH_SHORT).show();
+                        db.addOne(customerList);
+                        Toast.makeText(RegisterActivity.this, "Created Successfully", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(RegisterActivity.this, "Error Creating Customer", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }

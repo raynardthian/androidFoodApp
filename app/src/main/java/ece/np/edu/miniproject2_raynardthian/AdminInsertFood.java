@@ -25,8 +25,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
 public class AdminInsertFood extends AppCompatActivity {
-    EditText etFoodName,etFoodDescription, etFoodCost;
-    Button btFoodPicture,btFoodAdd,btShowFood;
+    EditText etFoodName, etFoodDescription, etFoodCost;
+    Button btFoodPicture, btFoodAdd, btShowFood;
     ImageView ivFoodPicture;
     String picturePath;
     DataBaseHelper db;
@@ -39,37 +39,47 @@ public class AdminInsertFood extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             FoodItem foodItemList;
+            String empty = "";
             String FoodName = etFoodName.getText().toString();
             String FoodDescription = etFoodDescription.getText().toString();
-            Float FoodCost = Float.parseFloat(etFoodCost.getText().toString());
-            Cursor cursor = db.getAllFoodData();
-            cursor.moveToFirst();
-            boolean exist = false;
-            for (int i = 0; i < cursor.getCount(); i++) {
-                String nameData = cursor.getString(1);
-                if (FoodName.equals(nameData)) {
-                    exist=true;
-                } else {
-                    cursor.moveToNext();
+            String FoodCostString = etFoodCost.getText().toString();
+            if (FoodName.equals(empty)) {
+                Toast.makeText(AdminInsertFood.this, "Please input your Food Name", Toast.LENGTH_SHORT).show();
+            } else if (FoodDescription.equals(empty)) {
+                Toast.makeText(AdminInsertFood.this, "Please input your Food Description", Toast.LENGTH_SHORT).show();
+            } else if (FoodCostString.equals(empty)) {
+                Toast.makeText(AdminInsertFood.this, "Please input your Food Cost", Toast.LENGTH_SHORT).show();
+            } else {
+                Cursor cursor = db.getAllFoodData();
+                cursor.moveToFirst();
+                boolean exist = false;
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    String nameData = cursor.getString(1);
+                    if (FoodName.equals(nameData)) {
+                        exist = true;
+                    } else {
+                        cursor.moveToNext();
+                    }
+                }
+                // if Food Name is found the same
+                if (exist) {
+                    Toast.makeText(AdminInsertFood.this, "Food Name is taken", Toast.LENGTH_SHORT).show();
+                }
+                // if Food Name is not taken
+                else {
+                    Float FoodCost = Float.parseFloat(FoodCostString);
+                    try {
+                        foodItemList = new FoodItem(-1, FoodName, FoodDescription, FoodCost, picturePath); // Address not passing through
+                        Toast.makeText(AdminInsertFood.this, foodItemList.toString(), Toast.LENGTH_SHORT).show();
+                        db.addOneFoodItem(foodItemList); // Add one data
+                        Toast.makeText(AdminInsertFood.this, "Created Successfully", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(AdminInsertFood.this, "Error Creating Food Item", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
-            // if Food Name is found the same
-            if(exist){
-                Toast.makeText(AdminInsertFood.this, "Food Name is taken", Toast.LENGTH_SHORT).show();
-            }
-            // if Food Name is not taken
-            else{
-                try {
-                    foodItemList = new FoodItem(-1,FoodName,FoodDescription,FoodCost,picturePath); // Address not passing through
-                    Toast.makeText(AdminInsertFood.this, foodItemList.toString(), Toast.LENGTH_SHORT).show();
-                    db.addOneFoodItem(foodItemList); // Add one data
-                    Toast.makeText(AdminInsertFood.this, "Created Successfully", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Toast.makeText(AdminInsertFood.this, "Error Creating Food Item", Toast.LENGTH_SHORT).show();
-                }
-            }
-            
         }
+
     };
     private View.OnClickListener pictureListener = new View.OnClickListener() {
         @Override
@@ -81,10 +91,15 @@ public class AdminInsertFood extends AppCompatActivity {
     private View.OnClickListener showListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            DataBaseHelper dataBaseHelper = new DataBaseHelper(AdminInsertFood.this);
-            List<FoodItem> everyone = dataBaseHelper.getAllFoodItem();
-            FoodListArrayAdapter = new ArrayAdapter<FoodItem>(AdminInsertFood.this, android.R.layout.simple_list_item_1, everyone);
-            lvFoodList.setAdapter(FoodListArrayAdapter);
+            try {
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(AdminInsertFood.this);
+                List<FoodItem> everyone = dataBaseHelper.getAllFoodItem();
+                FoodListArrayAdapter = new ArrayAdapter<FoodItem>(AdminInsertFood.this, android.R.layout.simple_list_item_1, everyone);
+                lvFoodList.setAdapter(FoodListArrayAdapter);
+            }
+            catch(Exception e){
+                Toast.makeText(AdminInsertFood.this,"No Food Created in Database",Toast.LENGTH_SHORT).show();
+            }
         }
     };
 
@@ -96,10 +111,11 @@ public class AdminInsertFood extends AppCompatActivity {
             List<FoodItem> everyone = db.getAllFoodItem();
             FoodListArrayAdapter = new ArrayAdapter<FoodItem>(AdminInsertFood.this, android.R.layout.simple_list_item_1, everyone);
             lvFoodList.setAdapter(FoodListArrayAdapter);
-            Toast.makeText(AdminInsertFood.this,"Deleted " + clickedFoodItem.toString(),Toast.LENGTH_LONG).show();
+            Toast.makeText(AdminInsertFood.this, "Deleted " + clickedFoodItem.toString(), Toast.LENGTH_LONG).show();
         }
     };
 
+    // This is to get the permission granted when inserting the image.
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -114,6 +130,7 @@ public class AdminInsertFood extends AppCompatActivity {
         }
     }
 
+    // Getting the Stringpath of the image to store into the database
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -150,6 +167,7 @@ public class AdminInsertFood extends AppCompatActivity {
         btFoodPicture.setOnClickListener(pictureListener);
         btShowFood.setOnClickListener(showListener);
         lvFoodList.setOnItemClickListener(nameListener);
+        // To check for the permission granted if no need to request for permission.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST);

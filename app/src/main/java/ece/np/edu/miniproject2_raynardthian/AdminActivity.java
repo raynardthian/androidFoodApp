@@ -21,6 +21,7 @@ public class AdminActivity extends AppCompatActivity {
     private View.OnClickListener showlistener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            // To get all the customer data to output in the admin activity when called
             DataBaseHelper dataBaseHelper = new DataBaseHelper(AdminActivity.this);
             List<Customer> everyone = dataBaseHelper.getEveryone();
             customerArrayAdapter = new ArrayAdapter<Customer>(AdminActivity.this, android.R.layout.simple_list_item_1, everyone);
@@ -30,6 +31,7 @@ public class AdminActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener nameListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            // When the listview button is being selected by the admin, it will delete the customer data in the database
             Customer clickedCustomer = (Customer)parent.getItemAtPosition(position);
             dataBaseHelper.deleteOne(clickedCustomer);
             List<Customer> everyone = dataBaseHelper.getEveryone();
@@ -54,7 +56,9 @@ public class AdminActivity extends AppCompatActivity {
         btNextPage = this.findViewById(R.id.btNextPage);
         lvNameList = this.findViewById(R.id.lvNameList);
         dataBaseHelper = new DataBaseHelper(AdminActivity.this);
-        customerArrayAdapter = new ArrayAdapter<Customer>(AdminActivity.this, android.R.layout.simple_list_item_1, dataBaseHelper.getEveryone());
+        List<Customer> everyone = dataBaseHelper.getEveryone();
+        customerArrayAdapter = new ArrayAdapter<Customer>(AdminActivity.this, android.R.layout.simple_list_item_1, everyone);
+        lvNameList.setAdapter(customerArrayAdapter);
         btShow.setOnClickListener(showlistener);
         lvNameList.setOnItemClickListener(nameListener);
         btNextPage.setOnClickListener(nextListener);

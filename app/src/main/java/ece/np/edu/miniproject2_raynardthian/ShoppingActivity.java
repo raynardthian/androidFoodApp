@@ -24,8 +24,9 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     ArrayList<String> FoodNames;
     ArrayList<String> fooditem;
     ArrayList<String> quantity;
-    String TotalSelectedFood = "", Food, Cost, Quantity, CustomerName;
+    String Food, Cost, Quantity, CustomerName;
     Float TotalCost = 0.0f, incomingCost;
+    private static final int REQUEST_CODE = 5;
 
 //    private View.OnClickListener profileListener = new View.OnClickListener() {
 //        @Override
@@ -40,7 +41,6 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
         @Override
         public void onClick(View v) {
             Intent i = new Intent(ShoppingActivity.this, CheckoutActivity.class);
-            i.putExtra("string_total_food", TotalSelectedFood);
             i.putExtra("string_total_cost", TotalCost);
             i.putExtra("customerName",CustomerName);
             i.putStringArrayListExtra("array_food",fooditem);
@@ -101,23 +101,15 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
                 Cost = data.getStringExtra("string_from_chosen_cost");
                 Quantity = data.getStringExtra("string_from_quantity");
                 incomingCost = Float.valueOf(Cost);
-                TotalSelectedFood = TotalSelectedFood + Quantity + " " + Food + "\n";
                 TotalCost = TotalCost + incomingCost;
-//                System.out.println(TotalSelectedFood);
-//                System.out.println(TotalCost);                                                          /// MAKE SURE TO REMOVE THI
                 fooditem.add(Food);
                 quantity.add(Quantity);
-                System.out.println(fooditem);
-
             }
         } else if (resultCode == RESULT_CANCELED) {
             Toast.makeText(ShoppingActivity.this, "Cancelled & Nothing Returned", Toast.LENGTH_SHORT).show();
 
         }
     }
-
-
-    private static final int REQUEST_CODE = 4;
 
     @Override
     public void onNoteClick(int position) {

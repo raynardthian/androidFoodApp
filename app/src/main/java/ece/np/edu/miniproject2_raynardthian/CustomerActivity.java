@@ -12,11 +12,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomerActivity extends AppCompatActivity {
-    public static final String COLUMN_CUSTOMER_NAME = "CUSTOMER_NAMETEXT";
-    public static final String COLUMN_CUSTOMER_PASSWORD = "CUSTOMER_PASSWORD";
-    public static final String COLUMN_CUSTOMER_AGE = "CUSTOMER_AGE";
-    public static final String COLUMN_ID = "ID";
-
     EditText etUser, etPass;
     Button btLogin;
     TextView tvTries, tvForgot, tvRegistration;
@@ -49,6 +44,7 @@ public class CustomerActivity extends AppCompatActivity {
                     Intent i = new Intent(CustomerActivity.this, ShoppingActivity.class);
                     // To send the name over to the shopping class activity
                     i.putExtra("customer_name",name);
+                    Toast.makeText(CustomerActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                     startActivity(i);
                     break;
                 }
@@ -56,6 +52,7 @@ public class CustomerActivity extends AppCompatActivity {
 
             if (!found) {
                 //WHAT DO IF CANNOT FOUND
+                // reducing the count if the input is invalid
                 tries--;
                 String t = String.valueOf(tries);
                 tvTries.setText(t);

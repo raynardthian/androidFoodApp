@@ -26,7 +26,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String ADMIN_FOOD_NAME = "ADMIN_FOOD_NAME";
 
     public DataBaseHelper(@Nullable Context context) {
-        super(context, "customers.db", null, 4);
+        super(context, "customers.db", null, 5);
     }
 
     // This is called the first time the database is accessed.
@@ -47,6 +47,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + ADMIN_FOOD_TABLE);
     }
 
+    // Adding one customer into the database
     public boolean addOne(Customer customerList) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -63,7 +64,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-
+    // Adding one fooditem into the database
     public boolean addOneFoodItem(FoodItem foodItem) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -148,14 +149,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
         return returnList;
     }
-
+    // Trying to use the cursor to select the data of the person.
     public Cursor getPersonDatas(String name) {
         String queryString = "SELECT * FROM " + CUSTOMER_TABLE + " WHERE " + COLUMN_CUSTOMER_NAME + " = '" + name+"'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         return cursor;
     }
-
+    // Trying to use the cursor to select the data of the fooditem.
     public Cursor getFoodItemData(String foodItem){
         String queryString = "SELECT * FROM " + ADMIN_FOOD_TABLE + " WHERE " + ADMIN_FOOD_NAME + " = '" + foodItem+"'";
         SQLiteDatabase db = this.getReadableDatabase();

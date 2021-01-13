@@ -51,21 +51,13 @@ public class CheckoutActivity extends AppCompatActivity {
             customerArrayAdapter = new ArrayAdapter(CheckoutActivity.this, android.R.layout.simple_list_item_1, totalQuantityAndFood);
             customerArrayAdapter.notifyDataSetChanged();
             lvFoodItems.setAdapter(customerArrayAdapter);
-
-            System.out.println("Quantity : " + intQuantity);
             float Reduction = foodPrice * intQuantity;
-            System.out.println("Reduction : " + Reduction);
             TotalCost =  TotalCost - Reduction;
-            System.out.println(TotalCost);
+            Toast.makeText(CheckoutActivity.this, "Total Price : $" + TotalCost, Toast.LENGTH_SHORT).show();
             String TotalCostString = String.valueOf(TotalCost);
             tvCostPrice.setText(TotalCostString);
             quantityArray = removeTheElement(quantityArray,posID);
             foodItemArray = removeTheElement(foodItemArray,posID);
-
-
-//            TotalCost = i.getFloatExtra("string_total_cost", 1);
-//            fooditems = i.getStringArrayListExtra("array_food");
-//            quantity = i.getStringArrayListExtra("array_quantity");
         }
     };
 
@@ -74,6 +66,7 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
         Intent i = this.getIntent();
+        // getting all the values from the shoppingActivity
         TotalCost = i.getFloatExtra("string_total_cost", 1);
         String CustomerName = i.getStringExtra("customerName");
         fooditems = i.getStringArrayListExtra("array_food");
@@ -82,9 +75,8 @@ public class CheckoutActivity extends AppCompatActivity {
         tvAddress = this.findViewById(R.id.tvAddress);
         lvFoodItems = this.findViewById(R.id.lvFoodItems);
         lvFoodItems.setOnItemClickListener(foodListener);
-        System.out.println(TotalCost);
-        System.out.println(CustomerName);
-
+        // By getting the customer name from the loginActivity, this is to input the name into the database
+        // and getting out the data out from the database of the user
         DataBaseHelper db = new DataBaseHelper(CheckoutActivity.this);
         Cursor cursor = db.getPersonDatas(CustomerName);
         if (cursor.moveToFirst()) {
@@ -96,12 +88,13 @@ public class CheckoutActivity extends AppCompatActivity {
         String TotalCostString = String.valueOf(TotalCost);
         tvCostPrice.setText(TotalCostString);
         tvAddress.setText(customerAddress);
-
+        // Converting arrayList into Array
         quantityArray = GetStringArray(quantity);
         foodItemArray = GetStringArray(fooditems);
+        // Getting the size of the array
         int n1 = fooditems.size();
-        System.out.println(n1);
         totalFood = new String[n1];
+        // combining the arrays together
         for (int s = 0; s < quantityArray.length; s++) {
 
             totalFood[s] = quantityArray[s] + " " + foodItemArray[s];
@@ -123,8 +116,7 @@ public class CheckoutActivity extends AppCompatActivity {
         return str;
     }
 
-    public static String[] removeTheElement(String arr[],
-                                            int index) {
+    public static String[] removeTheElement(String arr[], int index) {
         // Create another array of size one less
         String anotherArray[] = new String[arr.length - 1];
         // Copy the elements except the index

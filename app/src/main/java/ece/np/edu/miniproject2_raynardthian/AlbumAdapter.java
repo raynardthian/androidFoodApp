@@ -30,7 +30,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ImageViewHol
     // This is to set the recyclerView Table Values
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-
+    // this is to set the details into the RecyclerView in the ShoppingActivity
 //        holder.Album.setImageResource(image_id);
         holder.Album.setImageBitmap(BitmapFactory.decodeFile(PicturePath.get(position)));
         holder.AlbumTitle.setText(FoodNames.get(position));

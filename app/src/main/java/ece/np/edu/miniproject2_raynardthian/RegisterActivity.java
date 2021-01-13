@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText etUsername, etPassword, etAge, etAddress;
-    Button btRegister; //btViewAll;
+    Button btRegister;
     ListView lvNames;
     DataBaseHelper db;
     private View.OnClickListener registerListener = new View.OnClickListener() {
@@ -53,16 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     };
-//    private View.OnClickListener viewListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            DataBaseHelper dataBaseHelper = new DataBaseHelper(RegisterActivity.this);
-//            List<Customer> everyone = dataBaseHelper.getEveryone();
-//            ArrayAdapter customerArrayAdapter = new ArrayAdapter<Customer>(RegisterActivity.this, android.R.layout.simple_list_item_1, everyone);
-//            lvNames.setAdapter(customerArrayAdapter);
-//
-//        }
-//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +65,6 @@ public class RegisterActivity extends AppCompatActivity {
         etAddress = this.findViewById(R.id.etAddress);
         lvNames = this.findViewById(R.id.lvNames);
         db = new DataBaseHelper(RegisterActivity.this);
-//        btViewAll = this.findViewById(R.id.btViewAll);
-
-//        btViewAll.setOnClickListener(viewListener);
         btRegister.setOnClickListener(registerListener);
     }
 }

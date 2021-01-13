@@ -32,7 +32,6 @@ public class FoodItemActivity extends AppCompatActivity {
             i.putExtra("string_from_chosen_food",food);
             i.putExtra("string_from_chosen_cost",TotalCostString);
             i.putExtra("string_from_quantity",quantity);
-            // Have yet to send quantity over
             setResult(RESULT_OK,i);
             finish();}
             catch(Exception e){

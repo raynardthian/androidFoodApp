@@ -1,19 +1,18 @@
 package ece.np.edu.miniproject2_raynardthian;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText etUsername, etPassword, etAge, etAddress;
-    Button btRegister;
-    ListView lvNames;
+    Button btRegister,btBackToLogin;
     DataBaseHelper db;
     private View.OnClickListener registerListener = new View.OnClickListener() {
         @Override
@@ -66,6 +65,13 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     };
+    private View.OnClickListener backListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(RegisterActivity.this,CustomerActivity.class);
+            startActivity(i);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +81,10 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = this.findViewById(R.id.etUsername);
         etAge = this.findViewById(R.id.etAge);
         btRegister = this.findViewById(R.id.btRegister);
+        btBackToLogin = this.findViewById(R.id.btBackToLogin);
         etAddress = this.findViewById(R.id.etAddress);
-        lvNames = this.findViewById(R.id.lvNames);
         db = new DataBaseHelper(RegisterActivity.this);
         btRegister.setOnClickListener(registerListener);
+        btBackToLogin.setOnClickListener(backListener);
     }
 }

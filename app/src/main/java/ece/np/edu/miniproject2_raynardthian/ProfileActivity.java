@@ -1,91 +1,104 @@
 package ece.np.edu.miniproject2_raynardthian;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
-    ImageView ivProfile;
-    Button btChange, btSave;
-    // Currently not using this activity
-    private static final int PERMISSION_REQUEST = 0;
-    private static final int RESULT_LOAD_IMAGE = 1;
-    private static final int PICK_IMAGE = 100;
-    private View.OnClickListener changeListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(i, RESULT_LOAD_IMAGE);
-        }
-    };
+    Button btBackShopping, btSave;
+    EditText etNewPassword, etNewAge, etNewAddress;
+    TextView tvDisplayUsername, tvDisplayPassword, tvDisplayAge, tvDisplayAddress;
+    DataBaseHelper db;
+    int customerAge = 0;
+    String customerUsername, customerAddress, customerPassword, customerAgeString;
     private View.OnClickListener saveListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            Intent intent = new Intent(Intent.ACTION_PICK,Uri.parse("contents://media/internal/images/media"));
-//            startActivityForResult(intent,100);
+
+            String NewPassword = etNewPassword.getText().toString();
+            String NewAge = etNewAge.getText().toString();
+            String NewAddress = etNewAddress.getText().toString();
+            if (!NewPassword.equals("")) {
+                boolean updatingPassword = db.updateOne(customerUsername, NewPassword);
+                if (updatingPassword == true) {
+                    Toast.makeText(ProfileActivity.this, "Password Updated", Toast.LENGTH_SHORT).show();
+                    tvDisplayPassword.setText(NewPassword);
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Password Not Updated", Toast.LENGTH_SHORT).show();
+                }
+                if (!NewAge.equals("")) {
+                    int Age = Integer.valueOf(NewAge);
+                    boolean isUpdate = db.updateAge(customerUsername, Age);
+                    if (isUpdate == true) {
+                        Toast.makeText(ProfileActivity.this, "Age Updated", Toast.LENGTH_SHORT).show();
+                        tvDisplayAge.setText(NewAge);
+                    } else {
+                        Toast.makeText(ProfileActivity.this, "Age Not Updated", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                if (!NewAddress.equals("")) {
+                    boolean isUpdate = db.updateAddress(customerUsername, NewAddress);
+                    if (isUpdate == true) {
+                        Toast.makeText(ProfileActivity.this, "Address Updated", Toast.LENGTH_SHORT).show();
+                        tvDisplayAddress.setText(NewAddress);
+                    } else {
+                        Toast.makeText(ProfileActivity.this, "Address Not Updated", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+
+        }
+    };
+    private View.OnClickListener backListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(ProfileActivity.this, ShoppingActivity.class);
+            startActivity(i);
         }
     };
 
-    // To Request permission of allowing access to the photos
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMISSION_REQUEST:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission Granted!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case RESULT_LOAD_IMAGE:
-                if (resultCode == RESULT_OK) {
-                    Uri selectedImage = data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    cursor.close();
-                    ivProfile.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                }
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        ivProfile = this.findViewById(R.id.ivProfile);
-        btChange = this.findViewById(R.id.btChange);
+        tvDisplayUsername = this.findViewById(R.id.tvDisplayUsername);
+        tvDisplayPassword = this.findViewById(R.id.tvDisplayPassword);
+        tvDisplayAge = this.findViewById(R.id.tvDisplayAge);
+        tvDisplayAddress = this.findViewById(R.id.tvDisplayAddress);
+        etNewAge = this.findViewById(R.id.etNewAge);
+        etNewPassword = this.findViewById(R.id.etNewPassword);
+        etNewAddress = this.findViewById(R.id.etNewAddress);
         btSave = this.findViewById(R.id.btSave);
+        btBackShopping = this.findViewById(R.id.btBackShopping);
         btSave.setOnClickListener(saveListener);
-        btChange.setOnClickListener(changeListener);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST);
+        btBackShopping.setOnClickListener(backListener);
+
+        Intent i = this.getIntent();
+        String CustomerName = i.getStringExtra("customer_name_string");
+        db = new DataBaseHelper(ProfileActivity.this);
+        Cursor cursor = db.getPersonDatas(CustomerName);
+        if (cursor.moveToFirst()) {
+            do {
+                customerUsername = cursor.getString(1);
+                customerPassword = cursor.getString(2);
+                customerAge = cursor.getInt(3);
+                customerAddress = cursor.getString(4);
+            } while (cursor.moveToNext());
         }
+        customerAgeString = String.valueOf(customerAge);
+        tvDisplayUsername.setText(customerUsername);
+        tvDisplayAddress.setText(customerAddress);
+        tvDisplayAge.setText(customerAgeString);
+        tvDisplayPassword.setText(customerPassword);
 
     }
 }

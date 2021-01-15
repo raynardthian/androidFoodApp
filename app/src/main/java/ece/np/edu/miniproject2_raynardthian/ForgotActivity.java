@@ -1,5 +1,6 @@
 package ece.np.edu.miniproject2_raynardthian;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,9 +25,11 @@ public class ForgotActivity extends AppCompatActivity {
             } else {
                 boolean isUpdate = db.updateOne(name, pass);
                 if (isUpdate == true) {
-                    Toast.makeText(ForgotActivity.this, "Entry Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotActivity.this, "Password Updated", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(ForgotActivity.this,CustomerActivity.class);
+                    startActivity(i);
                 } else {
-                    Toast.makeText(ForgotActivity.this, "Entry Not Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotActivity.this, "Password Not Updated", Toast.LENGTH_SHORT).show();
                 }
             }
             db.close();

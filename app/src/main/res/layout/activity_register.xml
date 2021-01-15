@@ -53,7 +53,7 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Address" />
+        android:text="Delivery Address" />
 
     <EditText
         android:id="@+id/etAddress"
@@ -70,15 +70,10 @@
         android:background="#FFFFFF"
         android:text="Register" />
 
-    <ListView
-        android:id="@+id/lvNames"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <Button
-        android:id="@+id/btViewAll"
+        android:id="@+id/btBackToLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View All" />
+        android:text="Back To Login" />
 
 </LinearLayout>

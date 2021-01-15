@@ -110,7 +110,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // This is to update to the database
+    // This is to update password to the database
     public boolean updateOne(String name, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -120,6 +120,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean updateAge(String name , int age){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_CUSTOMER_AGE, age);
+        String[] s = {name};
+        db.update(CUSTOMER_TABLE, cv, COLUMN_CUSTOMER_NAME + "=?", s);
+        return true;
+    }
+
+    public boolean updateAddress(String name, String address){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_CUSTOMER_ADDRESS, address);
+        String[] s = {name};
+        db.update(CUSTOMER_TABLE, cv, COLUMN_CUSTOMER_NAME + "=?", s);
+        return true;
+    }
 
     // This is to get everyone in the datasheet
     public List<Customer> getEveryone() {

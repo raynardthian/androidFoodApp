@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.OnNoteListener {
-    Button btCheckout;
+    Button btCheckout,btProf;
     RecyclerView rvShop;
     RecyclerView.Adapter adapter;
     ArrayList<String> PicturePath;
@@ -28,13 +28,14 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     Float TotalCost = 0.0f, incomingCost;
     private static final int REQUEST_CODE = 5;
 
-//    private View.OnClickListener profileListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Intent i = new Intent(ShoppingActivity.this, ProfileActivity.class);
-//            startActivity(i);
-//        }
-//    };
+    private View.OnClickListener profileListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(ShoppingActivity.this, ProfileActivity.class);
+            i.putExtra("customer_name_string",CustomerName);
+            startActivity(i);
+        }
+    };
 
 
     private View.OnClickListener checkoutListener = new View.OnClickListener() {
@@ -54,9 +55,10 @@ public class ShoppingActivity extends AppCompatActivity implements AlbumAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
-
+        btProf =this.findViewById(R.id.btProf);
         btCheckout = this.findViewById(R.id.btCheckout);
         btCheckout.setOnClickListener(checkoutListener);
+        btProf.setOnClickListener(profileListener);
         rvShop = this.findViewById(R.id.rvShop);
         foodCost = new ArrayList<>();
         FoodNames = new ArrayList<>();

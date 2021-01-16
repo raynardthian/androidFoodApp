@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +22,13 @@ public class CheckoutActivity extends AppCompatActivity {
     ArrayAdapter customerArrayAdapter;
 
     int customerAge;
-    String customerAddress;
+    String customerAddress, CustomerName;
     TextView tvCostPrice, tvAddress;
+    Button btOrder;
     ListView lvFoodItems;
     ArrayList<String> fooditems;
     ArrayList<String> quantity;
+
     Float TotalCost;
     String totalFood[], quantityArray[], foodItemArray[];
     private AdapterView.OnItemClickListener foodListener = new AdapterView.OnItemClickListener() {
@@ -60,6 +63,17 @@ public class CheckoutActivity extends AppCompatActivity {
             foodItemArray = removeTheElement(foodItemArray,posID);
         }
     };
+    private View.OnClickListener orderListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(CheckoutActivity.this,FinalCheckout.class);
+            i.putExtra("customer_name_string", CustomerName);
+            i.putExtra("customer_address",customerAddress);
+            i.putExtra("order_cost",TotalCost);
+            i.putExtra("total_food_array",totalFood);
+            startActivity(i);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +82,7 @@ public class CheckoutActivity extends AppCompatActivity {
         Intent i = this.getIntent();
         // getting all the values from the shoppingActivity
         TotalCost = i.getFloatExtra("string_total_cost", 1);
-        String CustomerName = i.getStringExtra("customerName");
+        CustomerName = i.getStringExtra("customerName");
         fooditems = i.getStringArrayListExtra("array_food");
         quantity = i.getStringArrayListExtra("array_quantity");
         tvCostPrice = this.findViewById(R.id.tvCostPrice);
@@ -103,6 +117,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
         customerArrayAdapter = new ArrayAdapter(CheckoutActivity.this, android.R.layout.simple_list_item_1, totalQuantityAndFood);
         lvFoodItems.setAdapter(customerArrayAdapter);
+        btOrder = this.findViewById(R.id.btOrder);
+        btOrder.setOnClickListener(orderListener);
     }
 
     public static String[] GetStringArray(ArrayList<String> arr) {

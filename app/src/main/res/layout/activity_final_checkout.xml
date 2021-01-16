@@ -5,58 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CheckoutActivity">
+    tools:context=".FinalCheckout">
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="press on the order to delete the order" />
+        android:text="Customer Name"
+        android:textSize="26sp" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/tvCustomerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView33"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total Price"
         android:textSize="26sp" />
 
     <TextView
-        android:id="@+id/tvCostPrice"
+        android:id="@+id/tvCostPrice3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/textView28"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delivery Destination"
-        android:textSize="26sp"/>
+        android:textSize="26sp" />
 
     <TextView
-        android:id="@+id/tvAddress"
+        android:id="@+id/tvAddress2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView25"
+        android:id="@+id/textView30"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total Orders"
         android:textSize="26sp" />
 
     <ListView
-        android:id="@+id/lvFoodItems"
+        android:id="@+id/lvFood"
         android:layout_width="match_parent"
         android:layout_height="244dp" />
-
-    <Button
-        android:id="@+id/btOrder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Order" />
 
 </LinearLayout>

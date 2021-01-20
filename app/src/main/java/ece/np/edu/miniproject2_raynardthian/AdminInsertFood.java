@@ -172,5 +172,9 @@ public class AdminInsertFood extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST);
         }
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(AdminInsertFood.this);
+        List<FoodItem> everyone = dataBaseHelper.getAllFoodItem();
+        FoodListArrayAdapter = new ArrayAdapter<FoodItem>(AdminInsertFood.this, android.R.layout.simple_list_item_1, everyone);
+        lvFoodList.setAdapter(FoodListArrayAdapter);
     }
 }
